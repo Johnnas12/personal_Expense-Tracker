@@ -1,13 +1,22 @@
-import React, { useState, useEffect } from 'react';
+/*
+
+...
+This is the module responsible for showing the expenses that registered by users
+in this module the functionalities (Methods) included are:
+fetchExpenses => A method for fetching data according to user from database
+handleDelete => A method for deleting
+handleAddExpense => A method for adding new expenses
+handleSaveClick => A method for saving the edited expenses
+... 
+
+*/
+
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import DataTableExtensions from 'react-data-table-component-extensions';
-import DataTable from 'react-data-table-component';
-import 'react-data-table-component-extensions/dist/index.css';
 import Header from '../components/Header';
 import MultiLevelSidebar from '../components/MultiLevelSidebar';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
-
 
 const ViewExpenses = () => {
     const navigate = useNavigate();
@@ -112,115 +121,6 @@ const ViewExpenses = () => {
 
     const totalAmount = expenses.reduce((total, expense) => total + expense.amount, 0);
 
-    const columns = [
-        {
-            name: 'Amount',
-            selector: row => row.amount,
-            sortable: true,
-            cell: row => editRowId === row._id ? (
-                <input
-                    type="number"
-                    name="amount"
-                    value={editedData.amount}
-                    onChange={handleInputChange}
-                    className="border rounded w-full py-2 px-3 text-gray-700"
-                />
-            ) : row.amount
-        },
-        {
-            name: 'Category',
-            selector: row => row.category,
-            sortable: true,
-            cell: row => editRowId === row._id ? (
-                <select
-                    name="category"
-                    value={editedData.category}
-                    onChange={handleInputChange}
-                    className="border rounded w-full py-2 px-3 text-gray-700"
-                >
-                    {categories.map((category) => (
-                        <option key={category} value={category}>{category}</option>
-                    ))}
-                </select>
-            ) : row.category
-        },
-        {
-            name: 'Date',
-            selector: row => new Date(row.createdAt).toLocaleDateString(),
-            sortable: true,
-            cell: row => editRowId === row._id ? (
-                <input
-                    type="date"
-                    name="date"
-                    value={new Date(editedData.createdAt).toISOString().split('T')[0]}
-                    onChange={handleInputChange}
-                    className="border rounded w-full py-2 px-3 text-gray-700"
-                />
-            ) : new Date(row.createdAt).toLocaleDateString()
-        },
-        {
-            name: 'Description',
-            selector: row => row.description,
-            sortable: true,
-            cell: row => editRowId === row._id ? (
-                <input
-                    type="text"
-                    name="description"
-                    value={editedData.description}
-                    onChange={handleInputChange}
-                    className="border rounded w-full py-2 px-3 text-gray-700"
-                />
-            ) : row.description
-        },
-        {
-            name: 'Actions',
-            cell: row => editRowId === row._id ? (
-                <>
-                    <button
-                        onClick={handleSaveClick}
-                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mr-2"
-                    >
-                        Save
-                    </button>
-                    <button
-                        onClick={() => setEditRowId(null)}
-                        className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded"
-                    >
-                        Cancel
-                    </button>
-                </>
-            ) : (
-                <>
-                    <button
-                        onClick={() => handleEditClick(row)}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-2"
-                    >
-                        <i className='fas fa-edit'></i>
-                        
-                    </button>
-                    <button
-                        onClick={() => handleDelete(row._id)}
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
-                    >
-                        <i className='fas fa-trash'></i>
-                    </button>
-                </>
-            )
-        }
-    ];
-
-    const data = expenses.map(expense => ({
-        ...expense,
-        createdAt: new Date(expense.createdAt).toLocaleDateString()
-    }));
-
-    const tableData = {
-        columns,
-        data,
-        exportHeaders: true,
-        exportFileName: 'expenses',
-    };
-
     return (
         <>
             <div className="flex flex-col h-screen">
@@ -236,59 +136,163 @@ const ViewExpenses = () => {
                             >
                                 <i className={`fas fa-${showAddExpenseForm ? 'minus' : 'plus'}`}></i> {showAddExpenseForm ? 'Cancel' : 'Add Expense'}
                             </button>
-                            {showAddExpenseForm && (
-                                <div className="mb-4">
-                                    <input
-                                        type="number"
-                                        name="amount"
-                                        value={newExpense.amount}
-                                        onChange={handleNewExpenseChange}
-                                        className="border rounded w-full py-2 px-3 text-gray-700 mb-2"
-                                        placeholder="Amount"
-                                    />
-                                    <select
-                                        name="category"
-                                        value={newExpense.category}
-                                        onChange={handleNewExpenseChange}
-                                        className="border rounded w-full py-2 px-3 text-gray-700 mb-2"
-                                    >
-                                        {categories.map((category) => (
-                                            <option key={category} value={category}>{category}</option>
-                                        ))}
-                                    </select>
-                                    <input
-                                        type="date"
-                                        name="date"
-                                        value={newExpense.date}
-                                        onChange={handleNewExpenseChange}
-                                        className="border rounded w-full py-2 px-3 text-gray-700 mb-2"
-                                    />
-                                    <input
-                                        type="text"
-                                        name="description"
-                                        value={newExpense.description}
-                                        onChange={handleNewExpenseChange}
-                                        className="border rounded w-full py-2 px-3 text-gray-700 mb-2"
-                                        placeholder="Description"
-                                    />
-                                    <button
-                                        onClick={handleAddExpense}
-                                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                                    >
-                                        Add
-                                    </button>
-                                </div>
-                            )}
-                            <DataTableExtensions {...tableData}>
-                                <DataTable
-                                    columns={columns}
-                                    data={data}
-                                    pagination
-                                    selectableRows
-                                    export
-                                />
-                            </DataTableExtensions>
-                            <div className="mt-4 font-bold">Total Amount: {totalAmount}</div>
+                            <table className="min-w-full bg-white">
+                                <thead>
+                                    <tr>
+                                        <th className="py-2 px-4 border">Amount</th>
+                                        <th className="py-2 px-4 border">Category</th>
+                                        <th className="py-2 px-4 border">Date</th>
+                                        <th className="py-2 px-4 border">Description</th>
+                                        <th className="py-2 px-4 border">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {expenses.map((expense) => (
+                                        <tr key={expense._id}>
+                                            {editRowId === expense._id ? (
+                                                <>
+                                                    <td className="py-2 px-4 border">
+                                                        <input
+                                                            type="number"
+                                                            name="amount"
+                                                            value={editedData.amount}
+                                                            onChange={handleInputChange}
+                                                            className="border rounded w-full py-2 px-3 text-gray-700"
+                                                        />
+                                                    </td>
+                                                    <td className="py-2 px-4 border">
+                                                        <select
+                                                            name="category"
+                                                            value={editedData.category}
+                                                            onChange={handleInputChange}
+                                                            className="border rounded w-full py-2 px-3 text-gray-700"
+                                                        >
+                                                            {categories.map((category) => (
+                                                                <option key={category} value={category}>{category}</option>
+                                                            ))}
+                                                        </select>
+                                                    </td>
+                                                    <td className="py-2 px-4 border">
+                                                        <input
+                                                            type="date"
+                                                            name="date"
+                                                            value={new Date(editedData.createdAt).toISOString().split('T')[0]}
+                                                            onChange={handleInputChange}
+                                                            className="border rounded w-full py-2 px-3 text-gray-700"
+                                                        />
+                                                    </td>
+                                                    <td className="py-2 px-4 border">
+                                                        <input
+                                                            type="text"
+                                                            name="description"
+                                                            value={editedData.description}
+                                                            onChange={handleInputChange}
+                                                            className="border rounded w-full py-2 px-3 text-gray-700"
+                                                        />
+                                                    </td>
+                                                    <td className="py-2 px-4 border">
+                                                        <button
+                                                            onClick={handleSaveClick}
+                                                            className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mr-2"
+                                                        >
+                                                            Save
+                                                        </button>
+                                                        <button
+                                                            onClick={() => setEditRowId(null)}
+                                                            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded"
+                                                        >
+                                                            Cancel
+                                                        </button>
+                                                    </td>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <td className="py-2 px-4 border">{expense.amount}</td>
+                                                    <td className="py-2 px-4 border">{expense.category}</td>
+                                                    <td className="py-2 px-4 border">{new Date(expense.createdAt).toLocaleDateString()}</td>
+                                                    <td className="py-2 px-4 border">{expense.description}</td>
+                                                    <td className="py-2 px-4 border">
+                                                        <button
+                                                            onClick={() => handleEditClick(expense)}
+                                                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-2"
+                                                        >
+                                                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                                            </svg>
+                                                            {/* <i className="fas fa-edit"></i> */}
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleDelete(expense._id)}
+                                                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                                                        >
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                                            </svg>
+                                                        </button>
+                                                    </td>
+                                                </>
+                                            )}
+                                        </tr>
+                                    ))}
+                                    {showAddExpenseForm && (
+                                        <tr>
+                                            <td className="py-2 px-4 border">
+                                                <input
+                                                    type="number"
+                                                    name="amount"
+                                                    value={newExpense.amount}
+                                                    onChange={handleNewExpenseChange}
+                                                    className="border rounded w-full py-2 px-3 text-gray-700"
+                                                />
+                                            </td>
+                                            <td className="py-2 px-4 border">
+                                                <select
+                                                    name="category"
+                                                    value={newExpense.category}
+                                                    onChange={handleNewExpenseChange}
+                                                    className="border rounded w-full py-2 px-3 text-gray-700"
+                                                >
+                                                    {categories.map((category) => (
+                                                        <option key={category} value={category}>{category}</option>
+                                                    ))}
+                                                </select>
+                                            </td>
+                                            <td className="py-2 px-4 border">
+                                                <input
+                                                    type="date"
+                                                    name="date"
+                                                    value={newExpense.date}
+                                                    onChange={handleNewExpenseChange}
+                                                    className="border rounded w-full py-2 px-3 text-gray-700"
+                                                />
+                                            </td>
+                                            <td className="py-2 px-4 border">
+                                                <input
+                                                    type="text"
+                                                    name="description"
+                                                    value={newExpense.description}
+                                                    onChange={handleNewExpenseChange}
+                                                    className="border rounded w-full py-2 px-3 text-gray-700"
+                                                />
+                                            </td>
+                                            <td className="py-2 px-4 border">
+                                                <button
+                                                    onClick={handleAddExpense}
+                                                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded"
+                                                >
+                                                    Add
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colSpan="4" className="py-2 px-4 border font-bold">Total Amount</td>
+                                        <td className="py-2 px-4 border">{totalAmount}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
                         </div>
                     </main>
                 </div>

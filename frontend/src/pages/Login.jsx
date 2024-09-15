@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import axios  from 'axios'
+import axiosInstance,  {setAuthToken} from '../../utils/axiosInstance'
 import { Link, useNavigate } from 'react-router-dom'
 
 const Login = () => {
@@ -10,35 +11,57 @@ const Login = () => {
     const [isSuccess, setIsSuccess] = useState(false);
     const navigate = useNavigate();
 
+    const handleLogin = async (e) => {
+      e.preventDefault();
 
-    const handleSubmit = async (e) =>{
-        e.preventDefault();
-        try{
-            const response = await axios.post('http://localhost:5000/api/users/login', {
-                email,
-                password, 
+      try {
+          const response = await axiosInstance.post('http://localhost:5000/api/users/login', { email, password });
+          const { token, user } = response.data;
 
-            })
-            axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
-            setMessage('Log in successful!');
-            localStorage.setItem('token', response.data.token);
-            localStorage.setItem('user', JSON.stringify(response.data));
-            setIsSuccess(true)
-            setEmail('');
-            setPassword('');
-            navigate('/home'); 
-            setTimeout(() => {
-                setMessage('');
-            }, 6000)
-            console.log(response.data)
-        }catch(error){
-            console.error(setMessage(error.response?.data?.message || 'An error occurred'));
-            setIsSuccess(false);
-            setTimeout(() => {
-                setMessage('');
-            }, 6000)
-        }
-    }
+          // Store token in localStorage
+          localStorage.setItem('token', token);
+          console.log(user);
+          localStorage.setItem('user', JSON.stringify(user) )
+
+          // Set token in Axios headers
+          setAuthToken(token);
+
+          // Redirect to profile or other protected route
+          navigate('/home');
+      } catch (error) {
+          setMessage(error.response?.data?.message || 'An error occurred');
+      }
+  };
+
+
+    // const handleSubmit = async (e) =>{
+    //     e.preventDefault();
+    //     try{
+    //         const response = await axios.post('http://localhost:5000/api/users/login', {
+    //             email,
+    //             password, 
+
+    //         })
+    //         axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+    //         setMessage('Log in successful!');
+    //         localStorage.setItem('token', response.data.token);
+    //         localStorage.setItem('user', JSON.stringify(response.data));
+    //         setIsSuccess(true)
+    //         setEmail('');
+    //         setPassword('');
+    //         navigate('/home'); 
+    //         setTimeout(() => {
+    //             setMessage('');
+    //         }, 6000)
+    //         console.log(response.data)
+    //     }catch(error){
+    //         console.error(setMessage(error.response?.data?.message || 'An error occurred'));
+    //         setIsSuccess(false);
+    //         setTimeout(() => {
+    //             setMessage('');
+    //         }, 6000)
+    //     }
+    // }
 
     return (
 
@@ -61,7 +84,7 @@ const Login = () => {
                  )} */}
           <div className="max-w-md w-full bg-white shadow-md rounded-xl p-6 bg-opacity-50">
             <h2 className="text-2xl text-gray-900 font-bold mb-6 ">Log In</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleLogin}>
               <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
                   Email

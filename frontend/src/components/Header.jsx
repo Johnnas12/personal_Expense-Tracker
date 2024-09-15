@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { HomeIcon } from "@heroicons/react/24/solid";
 import {  ChevronDownIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from 'react-router-dom';
+import {setAuthToken} from '../../utils/axiosInstance'
 import axios from 'axios';
 
 
@@ -11,6 +12,8 @@ const Header = ({ toggleSidebar }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const [user, setUser] = useState(null);
+
+
   const handleDropdownToggle = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -23,21 +26,33 @@ const Header = ({ toggleSidebar }) => {
     //console.log(parsedUserData.token)
   }, [])
 
+
+  const handleLogout = () => {
+    // Remove token from localStorage
+    localStorage.removeItem('token');
+
+    // Remove token from Axios headers
+    setAuthToken(null);
+
+    // Redirect to login page
+    navigate('/login');
+};
+
   
-  const handleLogout = async () => {
-    try{
-     const response =  await axios.post('http://localhost:5000/api/users/logout')
-     localStorage.removeItem("token");
-     localStorage.removeItem("user");
-      navigate('/');
-      console.log(response.data.message)
-      delete axios.defaults.headers.common['Authorization'];
-    }catch(error){
-      console.log(`login Error: ${error}`)
-      console.log(error.response?.data?.message || 'An error occurred')
-    }
+  // const handleLogout = async () => {
+  //   try{
+  //    const response =  await axios.post('http://localhost:5000/api/users/logout')
+  //    localStorage.removeItem("token");
+  //    localStorage.removeItem("user");
+  //     navigate('/');
+  //     console.log(response.data.message)
+  //     delete axios.defaults.headers.common['Authorization'];
+  //   }catch(error){
+  //     console.log(`login Error: ${error}`)
+  //     console.log(error.response?.data?.message || 'An error occurred')
+  //   }
    
-  };
+  // };
 
   return (
     <header className="fixed top-0 left-0 right-0 text-center shadow-lg bg-red-600 border-b text-white p-4 pb-5 flex items-center justify-between z-50">

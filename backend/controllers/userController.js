@@ -40,45 +40,32 @@ const registerUser = async (req, res) => {
     }
   };
 
-   // Controller for Log in the user
-   const loginUser = async (req, res) => {
+  const loginUser = async (req, res) => {
     const { email, password } = req.body;
-  
-    try {
-      const user = await User.findOne({ email });
-      if (!user) {
-        return res.status(400).json({ message: 'Invalid email or password' });
-      }
-  
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-        return res.status(400).json({ message: 'Invalid email or password' });
-      }
 
-      // generate token
-      // const token = jwt.sign({ id: user._id  },process.env.JWT_SECRET , {
-      //   expiresIn: '1h',
-      // });
-      const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-  
-      // create session
-      req.session.user = {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-      };
-  
-      res.status(200).json({ 
-        message: 'Login successful', 
-        id : user._id,
-        name: user.name ,
-        email: user.email, 
-        token
-       });
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid email or password' });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Invalid email or password' });
+        }
+
+        // Generate JWT token
+        const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+        res.status(200).json({ 
+            message: 'Login successful', 
+            user: { id: user._id, name: user.name, email: user.email },
+            token 
+        });
     } catch (error) {
-      res.status(500).json({ message: 'Server error' });
+        res.status(500).json({ message: 'Server error' });
     }
-  };
+};
 
   // controller to logout from the system
   const logoutUser = (req, res) => {
