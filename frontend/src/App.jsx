@@ -11,6 +11,7 @@ import PrivateRoute from './PrivateRoutes';
 import TableDemo from './pages/EditableTable';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
+import Profile from './pages/Profile';
 
 function App() {
  // useAuth();
@@ -77,6 +78,14 @@ function App() {
             element= {
             <PrivateRoute>
                 <TableDemo />
+            </PrivateRoute>}
+            />
+
+           <Route
+            path='/profile'
+            element= {
+            <PrivateRoute>
+                <Profile />
             </PrivateRoute>}
             />
         </Routes>
