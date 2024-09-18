@@ -42,6 +42,7 @@ const DailyPlanner = () => {
             setEvents([...events, response.data]);
         } catch (error) {
             console.error('Error adding event:', error);
+            console.log(newEvent);
         }
     };
 
@@ -104,6 +105,10 @@ const DailyPlanner = () => {
                 events={events.map(event => ({
                     ...event,
                     classNames: event.completed ? 'event-completed' : '', // Add custom class if completed
+
+                    
+                    backgroundColor: event.backgroundColor,
+                    borderColor: event.backgroundColor,
                 }))}
                 dateClick={handleDateClick}
                 eventClick={handleEventClick} // Add the event click handler

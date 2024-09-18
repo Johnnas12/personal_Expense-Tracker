@@ -14,13 +14,13 @@ const fetchEvents = async (req, res) => {
 
 // Adding new events
 const addEvents = async (req, res) => {
-    const { title, start, end } = req.body;
+    const { title, start, end, backgroundColor  } = req.body;
     try {
         const newEvent = new Event({
             title,
             start,
             end,
-            backgroundColor: color, 
+            backgroundColor, 
             userId: req.user.id,
         });
         await newEvent.save();
