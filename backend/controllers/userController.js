@@ -80,7 +80,6 @@ const registerUser = async (req, res) => {
     });
   };
 
-
   // Get user profile
 const getUserProfile = async (req, res) => {
   try {

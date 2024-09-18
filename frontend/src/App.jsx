@@ -8,18 +8,17 @@ import ViewExpenses from './pages/Show';
 import EditExpense from './pages/Edit';
 import LandingPage from './pages/landingpage';
 import PrivateRoute from './PrivateRoutes';
-import TableDemo from './pages/EditableTable';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import Profile from './pages/Profile';
 import DailyPlanner from './pages/DailyPlanner';
 
-function App() {
- // useAuth();
 
+
+const App = () => {
   return (
-    
       <BrowserRouter>
+       {/*  */}
         <Routes>
           <Route path='/' element={<LandingPage />} />
           <Route path='/register' element={<Register />} />
@@ -72,15 +71,6 @@ function App() {
                 <ResetPassword /> 
             } 
           />
-
-
-          <Route
-            path='/editable'
-            element= {
-            <PrivateRoute>
-                <TableDemo />
-            </PrivateRoute>}
-            />
 
            <Route
             path='/profile'

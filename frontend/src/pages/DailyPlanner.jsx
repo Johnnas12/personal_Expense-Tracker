@@ -6,8 +6,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import axios from 'axios';
-import '../customCss/DailyPlanner.css'; // Custom CSS for styling
-import Modal from '../components/PlannerDialog';
+import '../customCss/DailyPlanner.css';
 import EventModal from '../components/Modal';
 
 
@@ -48,29 +47,8 @@ const DailyPlanner = () => {
 
     // Handle adding new events
     const handleDateClick = async (info) => {
-        
-      // const title = prompt('Enter a title for your event:');
-           // Set the date for the modal
         setSelectedDate(info.dateStr);
-        // Open the modal
         setIsModalOpen(true);
-       
-        // if (title) {
-        //     const newEvent = {
-        //         title,
-        //         start: info.dateStr,
-        //         end: info.dateStr,
-        //     };
-        //     try {
-        //         const token = localStorage.getItem('token');
-        //         const response = await axios.post('http://localhost:5000/api/events/addEvents', newEvent, {
-        //             headers: { Authorization: `Bearer ${token}` },
-        //         });
-        //         setEvents([...events, response.data]);
-        //     } catch (error) {
-        //         console.error('Error adding event:', error);
-        //     }
-        // }
     };
 
     // Handle marking events as done
@@ -104,14 +82,14 @@ const DailyPlanner = () => {
                 }}
                 events={events.map(event => ({
                     ...event,
-                    classNames: event.completed ? 'event-completed' : '', // Add custom class if completed
+                    classNames: event.completed ? 'event-completed' : '', 
 
                     
                     backgroundColor: event.backgroundColor,
                     borderColor: event.backgroundColor,
                 }))}
                 dateClick={handleDateClick}
-                eventClick={handleEventClick} // Add the event click handler
+                eventClick={handleEventClick} 
                 editable={true}
                 selectable={true}
                 displayEventTime={false}

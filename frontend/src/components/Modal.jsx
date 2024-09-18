@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable react/prop-types */
+import { useState, useEffect } from 'react';
 
 const EventModal = ({ isOpen, onClose, onSave, selectedDate }) => {
     const [title, setTitle] = useState('');

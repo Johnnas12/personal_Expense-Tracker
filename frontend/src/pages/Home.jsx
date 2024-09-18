@@ -19,9 +19,6 @@ const Home = () => {
         <main className={`flex-1 p-4 transition-all duration-300 ${isSidebarOpen ? "ml-64" : "ml-16"} mt-5`}>
           <MainContent />
           <ReportTable />
-
-
-
         </main>
       </div>
       <Footer />

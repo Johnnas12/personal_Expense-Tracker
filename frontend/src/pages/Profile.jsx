@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // Profile.jsx
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -50,7 +51,6 @@ const Profile = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-
             setMessage('Profile updated successfully');
             setIsSuccess(true);
             setTimeout(() => setMessage(''), 5000);

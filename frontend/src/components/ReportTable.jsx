@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import DataTable from 'react-data-table-component';
-import { format, startOfDay, subDays, endOfDay } from 'date-fns';
+import {startOfDay, subDays, endOfDay } from 'date-fns';
 
 const ReportTable = () => {
   const [expenses, setExpenses] = useState([]);

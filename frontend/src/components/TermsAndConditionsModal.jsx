@@ -1,9 +1,8 @@
+/* eslint-disable react/prop-types */
 /*
 This is  a modal Module to show terms and condtions
 it is dismissable 
 */
-import React from 'react';
-
 const TermsAndConditionsModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 

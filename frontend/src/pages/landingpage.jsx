@@ -7,9 +7,7 @@ const LandingPage = () => {
 <section className="relative text-white h-screen flex flex-col justify-center items-center text-center p-6 bg-cover bg-center"
   style={{ backgroundImage: 'url(bg.jpg)' }}
 >
-  {/* Dark overlay */}
   <div className="absolute inset-0 bg-black opacity-100"></div>
-  {/* Blurred background */}
   <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url(bg.jpg)', filter: 'blur(10px)' }}></div>
   
   <h1 className="relative text-4xl md:text-6xl font-bold mb-4 animate__animated animate__fadeIn">Personal Expense Tracker</h1>
@@ -24,8 +22,6 @@ const LandingPage = () => {
     </button>
   </Link>
 </section>
-
-
       <section className="bg-red-600 p-8">
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold text-center text-white mb-8">Features</h2>
