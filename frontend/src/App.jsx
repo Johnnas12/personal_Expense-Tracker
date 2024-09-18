@@ -12,6 +12,7 @@ import TableDemo from './pages/EditableTable';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import Profile from './pages/Profile';
+import DailyPlanner from './pages/DailyPlanner';
 
 function App() {
  // useAuth();
@@ -88,6 +89,15 @@ function App() {
                 <Profile />
             </PrivateRoute>}
             />
+
+        <Route
+            path='/dailyPlanner'
+            element= {
+            <PrivateRoute>
+                <DailyPlanner />
+            </PrivateRoute>}
+            />
+
         </Routes>
       </BrowserRouter>
     
