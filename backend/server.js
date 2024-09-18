@@ -8,6 +8,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const cors = require('cors');
 const expenseRoutes = require('./routes/expenseRoutes');
+const eventsRoutes = require('./routes/eventsRoutes')
 
 dotenv.config();
 const app = express();
@@ -34,6 +35,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 app.use('/api/users', userRoutes);
 app.use('/api/expenses', expenseRoutes)
+app.use('/api/events', eventsRoutes)
 
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
