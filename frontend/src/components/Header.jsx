@@ -4,6 +4,7 @@ import {  ChevronDownIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from 'react-router-dom';
 import {setAuthToken} from '../../utils/axiosInstance'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 
@@ -73,7 +74,10 @@ const Header = ({ toggleSidebar }) => {
           <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg">
             <a href="/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">{user.name}</a>
             <a href="/settings" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">{user.email}</a>
-            <a onClick={handleLogout} className="block px-4 py-2 text-red-600 hover:bg-gray-100">
+            <Link to="/profile">
+            <a className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Edit Profile</a>
+            </Link>
+            <a onClick={handleLogout} role='button' className="block px-4 py-2 text-red-600 hover:bg-gray-100">
             <span>Logout</span></a>
           </div>
         )}
