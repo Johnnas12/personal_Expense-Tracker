@@ -3,28 +3,30 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-      "server": "nodemon server.js ",
-      "test": "echo \"Error: no test specified\" && exit 1"
+        "server": "nodemon server.js ",
+        "test": "mocha"
     },
     "keywords": [],
     "author": "yohanesmesfin3gmail.com github.com/johnnas12",
     "license": "ISC",
     "description": "",
     "dependencies": {
-      "bcrypt": "^5.1.1",
-      "bcryptjs": "^2.4.3",
-      "connect-mongo": "^5.1.0",
-      "cors": "^2.8.5",
-      "crypto": "^1.0.1",
-      "dotenv": "^16.4.5",
-      "express": "^4.19.2",
-      "express-async-handler": "^1.2.0",
-      "express-session": "^1.18.0",
-      "jsonwebtoken": "^9.0.2",
-      "mongoose": "^8.5.1"
+        "bcrypt": "^5.1.1",
+        "bcryptjs": "^2.4.3",
+        "connect-mongo": "^5.1.0",
+        "cors": "^2.8.5",
+        "crypto": "^1.0.1",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "express-async-handler": "^1.2.0",
+        "express-session": "^1.18.0",
+        "jsonwebtoken": "^9.0.2",
+        "mongoose": "^8.5.1"
     },
     "devDependencies": {
-      "nodemon": "^3.1.4"
+        "chai": "^5.1.1",
+        "mocha": "^10.7.3",
+        "nodemon": "^3.1.4",
+        "supertest": "^7.0.0"
     }
-  }
-  
+}

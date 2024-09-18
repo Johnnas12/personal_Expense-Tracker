@@ -37,7 +37,9 @@ app.use('/api/users', userRoutes);
 app.use('/api/expenses', expenseRoutes)
 app.use('/api/events', eventsRoutes)
 
+
+
+module.exports = app;
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
 })
-
