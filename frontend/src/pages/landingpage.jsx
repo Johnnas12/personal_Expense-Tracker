@@ -10,7 +10,7 @@ const LandingPage = () => {
   <div className="absolute inset-0 bg-black opacity-100"></div>
   <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url(bg.jpg)', filter: 'blur(10px)' }}></div>
   
-  <h1 className="relative text-4xl md:text-6xl font-bold mb-4 animate__animated animate__fadeIn">Personal Expense Tracker</h1>
+  <h1 className="relative text-4xl md:text-6xl font-bold mb-4 animate__animated animate__fadeIn">Personal Expense And Event Tracker</h1>
   <p className="relative text-lg md:text-2xl mb-6 animate__animated animate__fadeIn animate__delay-1s">
     Manage your expenses efficiently and take control of your financial future.
   </p>
